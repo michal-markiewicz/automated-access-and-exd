@@ -1,6 +1,6 @@
 import { log } from "./main.js";
 import { typeCredentialsAndSubmit } from "./main.js";
-import { accountIds, internalUserEmails, adminPanelAccount } from "./settings.js";
+import { accountIds, internalUserEmails, adminPanelAccount, environment } from "./settings.js";
 
 const editUserButtonsSelector = `[data-qa-test-element="account-users--btn-edit"]`;
 const themesPermissionsSwitchSelector = `[data-testid="themes-edit-switch"] input`;
@@ -13,7 +13,7 @@ const maximumRowsSelector = `li[data-value='50']`;
 
 async function giveExdPermissionsForAllAccounts(page, browser, index = 1) {
   await goToAccountWithSso(page, accountIds[index - 1]);
-  await page.goto("https://orca.zoovu.com/users");
+  await page.goto(`https://${environment}.zoovu.com/users`);
   await giveExdPermissionsToUsers(page);
 
   if (index < accountIds.length) {
@@ -67,7 +67,7 @@ async function giveExdPermissionsToUsers(page) {
 
 async function goToAccountWithSso(page, accountId) {
   page.goto(
-    `https://login.zoovu.com/zoovub2cprod.onmicrosoft.com/b2c_1a_jwt_signin/oauth2/v2.0/logout?post_logout_redirect_uri=https%3A%2F%2Forca-backend-api.zoovu.com%2Fusers%2Fjwt-login%3Fredirect_uri%3Dhttps%3A%2F%2Forca.zoovu.com%2F%26account_id%3D${accountId}`
+    `https://login.zoovu.com/zoovub2cprod.onmicrosoft.com/b2c_1a_jwt_signin/oauth2/v2.0/logout?post_logout_redirect_uri=https%3A%2F%2F${environment}-backend-api.zoovu.com%2Fusers%2Fjwt-login%3Fredirect_uri%3Dhttps%3A%2F%2F${environment}.zoovu.com%2F%26account_id%3D${accountId}`
   );
   await typeCredentialsAndSubmit(page);
 }

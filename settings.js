@@ -10,6 +10,9 @@ const adminPanelAccount = {
 const userEmails = [];
 
 // users gonna get assigned to each account added here
-const accountIds = ["250000334", "250000335"];
+const accountIds = ["1534"];
 
-export { adminPanelAccount, userEmails as internalUserEmails, accountIds };
+// if you change environment make sure to change email aswell
+const environment = "barracuda"; // orca or barracuda
+
+export { adminPanelAccount, userEmails as internalUserEmails, accountIds, environment };

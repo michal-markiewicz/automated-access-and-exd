@@ -4,14 +4,14 @@ import dayjs from "dayjs";
 import puppeteer from "puppeteer";
 import { linkUsersForAllAccounts } from "./linkUsers.js";
 import { giveExdPermissionsForAllAccounts } from "./exdPermissions.js";
-import { accountIds, internalUserEmails, adminPanelAccount } from "./settings.js";
+import { accountIds, internalUserEmails, adminPanelAccount, environment } from "./settings.js";
 
 const emailInputSelector = "#signInName";
 const passswordInputSelector = "#password";
 
 (async () => {
   const { page, browser } = await launchBrowser();
-  await page.goto("https://orca-admin.zoovu.com/");
+  await page.goto(`https://${environment}-admin.zoovu.com/`);
   await typeCredentialsAndSubmit(page);
   await linkUsersForAllAccounts(page, accountIds);
   await giveExdPermissionsForAllAccounts(page, browser);
@@ -19,7 +19,7 @@ const passswordInputSelector = "#password";
 })();
 
 async function launchBrowser() {
-  const browser = await puppeteer.launch({ headless: "new", slowMo: 25 });
+  const browser = await puppeteer.launch({ headless: false, slowMo: 25 });
   const page = await browser.newPage();
   page.setDefaultTimeout(0);
   await page.setViewport({ width: 1080, height: 1024 });

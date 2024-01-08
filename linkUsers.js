@@ -1,5 +1,5 @@
 import { log } from "./main.js";
-import { accountIds, internalUserEmails, adminPanelAccount } from "./settings.js";
+import { accountIds, internalUserEmails, adminPanelAccount, environment } from "./settings.js";
 
 const linkUserButtonSelector = "[data-qa-test-element='admintool--btn-link-user']";
 const userSearchSelector = "[data-qa-test-element='async-search-select'] input";
@@ -29,7 +29,7 @@ async function linkUser(page, email, accountId, admin) {
 
 async function linkUsersForAllAccounts(page, accountIds) {
   for (const accountId of accountIds) {
-    await page.goto(`https://orca-admin.zoovu.com/accounts/${accountId}`);
+    await page.goto(`https://${environment}-admin.zoovu.com/accounts/${accountId}`);
 
     for (const internalUserEmail of internalUserEmails) {
       await linkUser(page, internalUserEmail, accountId, false);
