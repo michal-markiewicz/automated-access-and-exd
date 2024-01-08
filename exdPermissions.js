@@ -13,6 +13,7 @@ const maximumRowsSelector = `li[data-value='50']`;
 
 async function giveExdPermissionsForAllAccounts(page, browser, index = 1) {
   await goToAccountWithSso(page, accountIds[index - 1]);
+  log(`Starting EXD assignment on account ${accountIds[index - 1]}`);
   await page.goto(`https://${environment}.zoovu.com/users`);
   await giveExdPermissionsToUsers(page);
 

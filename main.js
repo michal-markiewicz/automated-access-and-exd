@@ -19,7 +19,7 @@ const passswordInputSelector = "#password";
 })();
 
 async function launchBrowser() {
-  const browser = await puppeteer.launch({ headless: false, slowMo: 25 });
+  const browser = await puppeteer.launch({ headless: "new", slowMo: 25 });
   const page = await browser.newPage();
   page.setDefaultTimeout(0);
   await page.setViewport({ width: 1080, height: 1024 });
